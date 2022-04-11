@@ -85,7 +85,7 @@ def get_inputs():
     labels.append(input("Add a name: "))
     labels.append(input("Add an email adress: "))
     labels.append(input(
-        "Is subscribed to the newsletter? Enter 1 for 'yes', 0 for 'no': "))
+        "Is subscribed to the newsletter? Enter 1 for 'Yes', 0 for 'No': "))
     return labels
 
 
