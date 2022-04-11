@@ -10,7 +10,7 @@ def load_module(option):
     elif option == 3:
         hr_controller.menu()
     elif option == 0:
-        return 0
+        exit()
     else:
         raise KeyError()
 

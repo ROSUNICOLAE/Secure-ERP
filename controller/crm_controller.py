@@ -1,6 +1,7 @@
 from model.crm import crm
 from view import terminal as view
 from model import data_manager, util
+from controller import main_controller
 
 
 
@@ -65,6 +66,13 @@ def get_subscribed_emails():
         if customer_information[-1] == '1':
             print(customer_information[-2])
     
+    
+# def go_to_main_menu():
+#     options = ["Exit program",
+#                "Customer Relationship Management (CRM)",
+#                "Sales",
+#                "Human Resources"]
+#     view.print_menu("Main menu", options)
 
 def run_operation(option):
     if option == 1:
@@ -77,8 +85,9 @@ def run_operation(option):
         delete_customer()
     elif option == 5:
         get_subscribed_emails()
-    elif option == 0:
+    if option == 0:
         return
+        # go_to_main_menu()
     else:
         raise KeyError("There is no such option.")
 

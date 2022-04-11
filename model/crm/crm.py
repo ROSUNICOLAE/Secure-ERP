@@ -16,5 +16,3 @@ HEADERS = ["id", "name", "email", "subscribed"]
 def get_list_customers():
     return data_manager.read_table_from_file(DATAFILE, separator=';')
 
-    
-    
