@@ -1,5 +1,6 @@
 from model.crm import crm
 from view import terminal as view
+from model import data_manager, util
 
 
 def list_customers():
@@ -8,11 +9,12 @@ def list_customers():
 
 
 def add_customer():
-    view.print_error_message("Not implemented yet.")
-    new_customer = view.get_inputs(labels)
-    view.write_table_to_file(add_customer)
+    list_customers = crm.get_list_customers()
+    new_customer = view.get_inputs()
+    list_customers.append(new_customer)
+    data_manager.write_table_to_file(crm.DATAFILE, list_customers, separator=';')
     
-   
+    
 def update_customer():
     view.print_error_message("Not implemented yet.")
 
