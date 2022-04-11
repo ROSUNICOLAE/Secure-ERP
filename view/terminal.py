@@ -82,9 +82,9 @@ def get_inputs():
                                 number_of_special_chars=2,
                                 allowed_special_chars=r"_+-!")
     labels.append(new_client_id)
-    labels.append(view.get_input("Add a name: "))
-    labels.append(view.get_input("Add an email adress: "))
-    labels.append(view.get_input(
+    labels.append(get_input("Add a name: "))
+    labels.append(input("Add an email adress: "))
+    labels.append(get_input(
         "Is subscribed to the newsletter? Enter 1 for 'yes', 0 for 'no': "))
     return labels
 
