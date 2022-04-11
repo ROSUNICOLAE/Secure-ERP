@@ -77,6 +77,5 @@ def print_error_message(message):
     Args:
         message: str - the error message
     """
-
     print(message)
 
