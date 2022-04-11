@@ -1,3 +1,6 @@
+from tabulate import tabulate
+
+
 def print_menu(title, list_options):
     """Prints options in standard menu format like this:
 
@@ -49,7 +52,9 @@ def print_table(table):
     Args:
         table: list of lists - the table to print out
     """
-    pass
+    HEADERS = ["id", "name", "email", "subscribed"]
+    print(tabulate(table, HEADERS, tablefmt="fancy_grid",
+      colalign=("center",), numalign="center"))
 
 
 def get_input(label):
@@ -58,7 +63,7 @@ def get_input(label):
     Args:
         label: str - the label before the user prompt
     """
-    label = int(input("Select module: "))
+    label = int(input(f'{label} : '))
     return label
 
 
@@ -68,8 +73,17 @@ def get_inputs(labels):
     Args:
         labels: list - the list of the labels to be displayed before each prompt
     """
-    pass
-
+    labels = []
+    new_client_id = generate_id(number_of_small_letters=4,
+                                number_of_capital_letters=2,
+                                number_of_digits=2,
+                                number_of_special_chars=2,
+                                allowed_special_chars=r"_+-!")
+    labels.append(new_client_id)
+    labels.append(get_input("Add a name"))
+    labels.append(get_input("Add an email adress"))
+    labels.append(get_input("Is subscribed to the newsletter? Enter 1 for 'yes', 0 for 'no'"))
+    return labels
 
 def print_error_message(message):
     """Prints an error message to the terminal.
@@ -78,4 +92,3 @@ def print_error_message(message):
         message: str - the error message
     """
     print(message)
-

@@ -8,7 +8,18 @@ Data table structure:
 """
 
 from model import data_manager, util
-
+from view import terminal as view
 
 DATAFILE = "model/crm/crm.csv"
 HEADERS = ["id", "name", "email", "subscribed"]
+
+
+def get_list_customers():
+    return data_manager.read_table_from_file(DATAFILE, separator=';')
+
+
+def add_customer():
+    table = view.get_inputs(labels)
+    return data_manager.write_table_to_file(DATAFILE, table, separator=';')
+    
+    
