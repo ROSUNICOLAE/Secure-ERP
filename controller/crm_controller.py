@@ -3,7 +3,9 @@ from view import terminal as view
 
 
 def list_customers():
-    view.print_error_message("Not implemented yet.")
+    HEADERS = ["id", "name", "email", "subscribed"]
+    list_customers = crm.get_list_customers()
+    view.print_table(list_customers)
 
 
 def add_customer():

@@ -1,3 +1,7 @@
+
+from tabulate import tabulate
+
+
 def print_menu(title, list_options):
     """Prints options in standard menu format like this:
 
@@ -49,7 +53,9 @@ def print_table(table):
     Args:
         table: list of lists - the table to print out
     """
-    pass
+    HEADERS = ["id", "name", "email", "subscribed"]
+    print(tabulate(table, HEADERS, tablefmt="fancy_grid",
+      colalign=("center",), numalign="center"))
 
 
 def get_input(label):
@@ -58,7 +64,7 @@ def get_input(label):
     Args:
         label: str - the label before the user prompt
     """
-    label = int(input("Select module: "))
+    label = int(input(f'{label} : '))
     return label
 
 
