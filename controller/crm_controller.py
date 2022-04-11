@@ -12,11 +12,22 @@ def add_customer():
     list_customers = crm.get_list_customers()
     new_customer = view.get_inputs()
     list_customers.append(new_customer)
-    data_manager.write_table_to_file(crm.DATAFILE, list_customers, separator=';')
-    
-    
+    data_manager.write_table_to_file(
+        crm.DATAFILE, list_customers, separator=';')
+
+
 def update_customer():
-    view.print_error_message("Not implemented yet.")
+    list_customers = crm.get_list_customers()
+    customer_id_to_update = input(
+        "In order to update a customer, please enter an ID: ")
+    if customer_id_to_update in (item for sublist in list_customers for item in sublist):
+        for lst in list_customers:
+            for elem in lst:
+                index_of_customer_id_to_update = elem.index(customer_id_to_update)
+                print(index_of_customer_id_to_update)
+                print(list_customers[index_of_customer_id_to_update])
+    else:
+        print("Not in the list")
 
 
 def delete_customer():
