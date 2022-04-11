@@ -15,7 +15,8 @@ def add_customer():
     list_customers.append(new_customer)
     data_manager.write_table_to_file(
         crm.DATAFILE, list_customers, separator=';')
-
+    
+    
 def get_client_from_id(list_customers, customer_id_to_update):
     for item, sublist in enumerate(list_customers):
         try:
@@ -23,6 +24,7 @@ def get_client_from_id(list_customers, customer_id_to_update):
         except ValueError:
             continue
     return None
+
 
 def update_customer():
     list_customers = crm.get_list_customers()
@@ -46,17 +48,23 @@ def delete_customer():
     list_customers = crm.get_list_customers()
     customer_id_to_update = input(
         "In order to delete a customer, please enter an ID: ")
-    customer_index = get_client_from_id(list_customers, customer_id_to_update)
-    if customer_index is not None:
-        list_customers.pop(customer_index[0])
+    customer_tuple = get_client_from_id(list_customers, customer_id_to_update)
+    customer_index = customer_tuple[0]
+    if customer_tuple is not None:
+        list_customers.pop(customer_index)
         data_manager.write_table_to_file(crm.DATAFILE, list_customers, separator=';')
     else:
         print("Not an ID in the list of customers")
 
 
 def get_subscribed_emails():
-    view.print_error_message("Not implemented yet.")
-
+    '''Get the emails of subscribed customers'''
+    list_customers = crm.get_list_customers()
+    print("Email adresses of the subscribed customers:")
+    for customer_information in list_customers:
+        if customer_information[-1] == '1':
+            print(customer_information[-2])
+    
 
 def run_operation(option):
     if option == 1:
