@@ -16,8 +16,5 @@ HEADERS = ["id", "name", "email", "subscribed"]
 def get_list_customers():
     return data_manager.read_table_from_file(DATAFILE, separator=';')
 
-
-# def add_customer():
-#     return data_manager.write_table_to_file(DATAFILE, table, separator=';')
     
     
