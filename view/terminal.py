@@ -58,7 +58,7 @@ def get_input(label):
     Args:
         label: str - the label before the user prompt
     """
-    label = int(input())
+    label = int(input("Select module: "))
     return label
 
 
@@ -77,4 +77,6 @@ def print_error_message(message):
     Args:
         message: str - the error message
     """
-    pass
+
+    print(message)
+
