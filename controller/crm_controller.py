@@ -3,6 +3,7 @@ from view import terminal as view
 from model import data_manager, util
 
 
+
 def list_customers():
     list_customers = crm.get_list_customers()
     view.print_table(list_customers)
@@ -15,23 +16,43 @@ def add_customer():
     data_manager.write_table_to_file(
         crm.DATAFILE, list_customers, separator=';')
 
+def get_client_from_id(list_customers,customer_id_to_update):
+    for item, sublist in enumerate(list_customers):
+        try:
+            return (item,sublist.index(customer_id_to_update))
+        except ValueError:
+            continue
+    return None
 
 def update_customer():
     list_customers = crm.get_list_customers()
     customer_id_to_update = input(
         "In order to update a customer, please enter an ID: ")
-    if customer_id_to_update in (item for sublist in list_customers for item in sublist):
-        for lst in list_customers:
-            for elem in lst:
-                index_of_customer_id_to_update = elem.index(customer_id_to_update)
-                print(index_of_customer_id_to_update)
-                print(list_customers[index_of_customer_id_to_update])
-    else:
-        print("Not in the list")
+    customer_index = get_client_from_id(list_customers,customer_id_to_update )
+    if customer_index is not None:
+        client_update_name = str(input("update name : "))
+        client_update_mail = str(input("update mail"))
+        client_update_subs = str(input("update subs"))
+        client_update = [customer_id_to_update, client_update_name,client_update_mail,client_update_subs]
+        list_customers[customer_index[0]] = client_update
+        data_manager.write_table_to_file(
+        crm.DATAFILE, list_customers, separator=';')
+    else :
+        print("nu este in lista")
+
 
 
 def delete_customer():
-    view.print_error_message("Not implemented yet.")
+    list_customers = crm.get_list_customers()
+    customer_id_to_update = input(
+        "In order to update a customer, please enter an ID: ")
+    customer_index = get_client_from_id(list_customers,customer_id_to_update )
+    if customer_index is not None:
+        list_customers.pop(customer_index[0])
+        data_manager.write_table_to_file(
+        crm.DATAFILE, list_customers, separator=';')
+    else :
+        print("nu este in lista")
 
 
 def get_subscribed_emails():
