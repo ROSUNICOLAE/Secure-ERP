@@ -1,4 +1,6 @@
 from tabulate import tabulate
+from model import data_manager, util
+from view import terminal as view
 
 
 def print_menu(title, list_options):
@@ -67,23 +69,25 @@ def get_input(label):
     return label
 
 
-def get_inputs(labels):
+def get_inputs():
     """Gets a list of string inputs from the user.
 
     Args:
         labels: list - the list of the labels to be displayed before each prompt
     """
     labels = []
-    new_client_id = generate_id(number_of_small_letters=4,
+    new_client_id = util.generate_id(number_of_small_letters=4,
                                 number_of_capital_letters=2,
                                 number_of_digits=2,
                                 number_of_special_chars=2,
                                 allowed_special_chars=r"_+-!")
     labels.append(new_client_id)
-    labels.append(get_input("Add a name"))
-    labels.append(get_input("Add an email adress"))
-    labels.append(get_input("Is subscribed to the newsletter? Enter 1 for 'yes', 0 for 'no'"))
+    labels.append(view.get_input("Add a name: "))
+    labels.append(view.get_input("Add an email adress: "))
+    labels.append(view.get_input(
+        "Is subscribed to the newsletter? Enter 1 for 'yes', 0 for 'no': "))
     return labels
+
 
 def print_error_message(message):
     """Prints an error message to the terminal.
