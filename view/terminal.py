@@ -11,7 +11,13 @@ def print_menu(title, list_options):
         title (str): the title of the menu (first row)
         list_options (list): list of the menu options (listed starting from 1, 0th element goes to the end)
     """
-    pass
+    for index in range(len(list_options)+1):
+        try:
+            print(f'({index}) {list_options[index]}')
+        except IndexError:
+            pass
+
+      
 
 
 def print_message(message):
