@@ -63,7 +63,33 @@ def delete_transaction():
 
 
 def get_biggest_revenue_transaction():
-    view.print_error_message("Not implemented yet.")
+    '''Get the transaction that made the biggest revenue'''
+    transactions = sales.get_transactions()
+    print("BIGGEST REVENUE TRANSACTION")
+    # print(transactions)
+    revenues = []
+    for transaction in transactions:
+        revenue = transaction[-2]
+        revenues.append(revenue)
+    # print(revenues)
+    # revenues_int = list(map(int, revenues))
+    print(revenues_int)
+    # tuple_index_revenue=[(item, transaction.index(biggest_revenue))for item, transaction in enumerate(transactions) if biggest_revenue in transaction]
+    # print(tuple_index_revenue)
+    # index_transaction_biggest_revenue = tuple_index_revenue[0]
+    # return transactions[index_transaction_biggest_revenue]
+    
+    #     customer_mail = customer_information[2]
+    #     subscription = customer_information[3]
+    #     if subscription == '1':
+    #         list_of_emails.append(customer_mail)
+    #     else:
+    #         continue
+    # for email in list_of_emails:
+    #     item = email.split(", ")
+    #     lists_of_list_of_email.append(item)
+    # print(tabulate(lists_of_list_of_email, headers=("Index", "Emails of the subscribed clients"), tablefmt="fancy_grid",
+    #                colalign=("center",), numalign="center", showindex="always"))
 
 
 def get_biggest_revenue_product():
