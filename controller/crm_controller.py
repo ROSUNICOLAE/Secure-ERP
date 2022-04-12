@@ -61,12 +61,25 @@ def delete_customer():
 def get_subscribed_emails():
     '''Get the emails of subscribed customers'''
     list_customers = crm.get_list_customers()
+    list_of_emails = []
     print("Email adresses of the subscribed customers:")
     for customer_information in list_customers:
-        if customer_information[-1] == '1':
-            print(customer_information[-2])
+        customer_mail = customer_information[2]
+        subscription = customer_information[3]
+        if subscription == '1':
+            list_of_emails.append(customer_mail)
+    return list_of_emails
     
-    
+   # list_customers = crm.get_list_customers()
+    # # print("Email adresses of the subscribed customers:")
+    # for customer_information in list_customers:
+    #     table = BeautifulTable()
+    #     table.columns_header = ["Email"]
+    #     customer_mail = customer_information[-2]
+    #     if customer_information[-1] == '1':
+    #         table.append_row([f'{customer_mail}'])
+    # print(table)
+
 # def go_to_main_menu():
 #     options = ["Exit program",
 #                "Customer Relationship Management (CRM)",
