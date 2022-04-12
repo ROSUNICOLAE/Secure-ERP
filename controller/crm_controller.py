@@ -5,7 +5,7 @@ from view import terminal as view
 from model import data_manager, util
 from controller import main_controller
 from tabulate import tabulate
-from beautifultable import BeautifulTable
+
 
 
 
