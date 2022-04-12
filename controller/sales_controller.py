@@ -1,6 +1,7 @@
 from model.sales import sales
 from view import terminal as view
 from model import data_manager, util
+from controller import main_controller
 
 
 def list_transactions():
@@ -122,7 +123,7 @@ def run_operation(option):
     elif option == 8:
         sum_transactions_between()
     elif option == 0:
-        return
+        main_controller.menu()
     else:
         raise KeyError("There is no such option.")
 
