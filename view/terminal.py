@@ -69,6 +69,17 @@ def print_table_hr(table):
     HEADERS = ["Id", "Name", "Date of birth", "Department", "Clearance"]
     print(tabulate(table, HEADERS, tablefmt="fancy_grid",
       colalign=("center",), numalign="center"))
+    
+    
+def print_table_sales(table):
+    """Prints tabular data like above.
+
+    Args:
+        table: list of lists - the table to print out
+    """
+    HEADERS = ["Id", "Customer", "Product", "Price", "Date"]
+    print(tabulate(table, HEADERS, tablefmt="fancy_grid",
+                   colalign=("center",), numalign="center"))
 
 
 def get_input(label):
