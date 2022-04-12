@@ -1,25 +1,71 @@
 from model.hr import hr
 from view import terminal as view
+from model import data_manager, util
+from controller import main_controller
 
 
 def list_employees():
-    view.print_error_message("Not implemented yet.")
+    list_employees = hr.get_list_customers()
+    headers = hr.HEADERS
+    view.print_table_hr(list_employees)
 
 
 def add_employee():
-    view.print_error_message("Not implemented yet.")
+    list_employees = hr.get_list_customers()
+    new_employee = view.get_inputs_hr()
+    list_employees.append(new_employee)
+    data_manager.write_table_to_file(hr.DATAFILE, list_employees, separator=';')
+
+def get_employee_from_id(list_employees, employee_id_to_update):
+    for item, sublist in enumerate(list_employees):
+        try:
+            return (item, sublist.index(employee_id_to_update))
+        except ValueError:
+            continue
+    return None
 
 
 def update_employee():
-    view.print_error_message("Not implemented yet.")
+    list_employees = hr.get_list_customers()
+    employee_id_to_update = input(
+        "In order to update a customer, please enter an ID: ")
+    employee_tuple = get_employee_from_id(list_employees, employee_id_to_update)
+    employee_index = employee_tuple[0]
+    if employee_tuple is not None:
+        employee_update_name = str(input("Update name: "))
+        employee_update_Date_of_birth = str(input("Update Date of birth: "))
+        employee_update_Department = str(input("Update Department: "))
+        employee_update_Clearance = str(input("Update Clearance: "))
+        employee_update = [employee_id_to_update, employee_update_name, employee_update_Date_of_birth,  employee_update_Department,employee_update_Clearance ]
+        list_employees[employee_index] = employee_update
+        data_manager.write_table_to_file(hr.DATAFILE, list_employees, separator=';')
+    else:
+        print("Not an ID in the list of customers")
 
 
 def delete_employee():
-    view.print_error_message("Not implemented yet.")
+    list_employees = hr.get_list_customers()
+    employee_id_to_delete = input(
+        "In order to delete a customer, please enter an ID: ")
+    employee_tuple = get_employee_from_id(list_employees, employee_id_to_delete)
+    employee_index = employee_tuple[0]
+    if employee_tuple is not None:
+        list_employees.pop(employee_index)
+        data_manager.write_table_to_file(hr.DATAFILE, list_employees, separator=';')
+    else:
+        print("Not an ID in the list of customers")
 
 
 def get_oldest_and_youngest():
-    view.print_error_message("Not implemented yet.")
+    list_employees = hr.get_list_customers()
+    year_list = []
+    for employee in range(len(list_employees)):
+        year_list.append(list_employees[employee][2])
+    oldest_emplyee = max(year_list)
+    print(list_employees.index(str(oldest_emplyee)))
+    youngest_employee = min(year_list)
+    print(b)
+
 
 
 def get_average_age():
@@ -58,7 +104,7 @@ def run_operation(option):
     elif option == 9:
         count_employees_per_department()
     elif option == 0:
-        return
+        main_controller.menu()
     else:
         raise KeyError("There is no such option.")
 

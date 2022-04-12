@@ -13,3 +13,5 @@ from model import data_manager, util
 DATAFILE = "model/hr/hr.csv"
 HEADERS = ["Id", "Name", "Date of birth", "Department", "Clearance"]
 
+def get_list_customers():
+    return data_manager.read_table_from_file(DATAFILE, separator=';')

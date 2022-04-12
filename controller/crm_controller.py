@@ -5,7 +5,7 @@ from view import terminal as view
 from model import data_manager, util
 from controller import main_controller
 from tabulate import tabulate
-from beautifultable import BeautifulTable
+
 
 
 
@@ -63,10 +63,6 @@ def delete_customer():
 
 
 def get_subscribed_emails():
-<<<<<<< HEAD
-
-
-=======
     '''Get the emails of subscribed customers'''
     list_customers = crm.get_list_customers()
     list_of_emails = []
@@ -85,7 +81,6 @@ def get_subscribed_emails():
     print(tabulate(lists_of_list_of_email, headers=("Index", "Emails of the subscribed clients"), tablefmt="fancy_grid",
                    colalign=("center",), numalign="center", showindex="always"))
     
->>>>>>> c65f069e549f4c7568d53123543833bd205b1931
 
 def run_operation(option):
     if option == 1:

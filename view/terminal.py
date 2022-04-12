@@ -4,6 +4,11 @@ from view import terminal as view
 
 
 def print_menu(title, list_options):
+    print(title)
+    for index in range(len(list_options)+1):
+        if (index + 1) in range(len(list_options)):
+            print(f'({index + 1}) {list_options[index + 1]}')
+    print(f'({0}) {list_options[0]}')
     """Prints options in standard menu format like this:
 
     Main menu:
@@ -16,20 +21,17 @@ def print_menu(title, list_options):
         title (str): the title of the menu (first row)
         list_options (list): list of the menu options (listed starting from 1, 0th element goes to the end)
     """
-    print(title)
-    for index in range(len(list_options)+1):
-        if (index + 1) in range(len(list_options)):
-            print(f'({index + 1}) {list_options[index + 1]}')
-    print(f'({0}) {list_options[0]}')
+
 
 
 def print_message(message):
+    print(message)
     """Prints a single message to the terminal.
 
     Args:
         message: str - the message
     """
-    print(message)
+
 
 
 def print_general_results(result, label):
@@ -55,6 +57,16 @@ def print_table(table):
         table: list of lists - the table to print out
     """
     HEADERS = ["id", "name", "email", "subscribed"]
+    print(tabulate(table, HEADERS, tablefmt="fancy_grid",
+      colalign=("center",), numalign="center"))
+
+def print_table_hr(table):
+    """Prints tabular data like above.
+
+    Args:
+        table: list of lists - the table to print out
+    """
+    HEADERS = ["Id", "Name", "Date of birth", "Department", "Clearance"]
     print(tabulate(table, HEADERS, tablefmt="fancy_grid",
       colalign=("center",), numalign="center"))
 
@@ -88,6 +100,24 @@ def get_inputs():
         "Is subscribed to the newsletter? Enter 1 for 'Yes', 0 for 'No': "))
     return labels
 
+def get_inputs_hr():
+    """Gets a list of string inputs from the user.
+
+    Args:
+        labels: list - the list of the labels to be displayed before each prompt
+    """
+    labels = []
+    new_client_id = util.generate_id(number_of_small_letters=4,
+                                number_of_capital_letters=2,
+                                number_of_digits=2,
+                                number_of_special_chars=2,
+                                allowed_special_chars=r"_+-!")
+    labels.append(new_client_id)
+    labels.append(input("Add a name: "))
+    labels.append(input("Date of Birth: "))
+    labels.append(input("Department: "))
+    labels.append(input("Clearance: "))
+    return labels
 
 def print_error_message(message):
     """Prints an error message to the terminal.
