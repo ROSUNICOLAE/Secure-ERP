@@ -10,7 +10,8 @@ def load_module(option):
     elif option == 3:
         hr_controller.menu()
     elif option == 0:
-        return 0
+        view.print_message("Good-bye!")
+        exit()
     else:
         raise KeyError()
 
@@ -34,4 +35,3 @@ def menu():
             view.print_error_message("There is no such option!")
         except ValueError:
             view.print_error_message("Please enter a number!")
-    view.print_message("Good-bye!")
