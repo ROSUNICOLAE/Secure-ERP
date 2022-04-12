@@ -91,7 +91,7 @@ def run_operation(option):
         delete_customer()
     elif option == 5:
         get_subscribed_emails()
-    if option == 0:
+    elif option == 0:
         main_controller.menu()
     else:
         raise KeyError("There is no such option.")
