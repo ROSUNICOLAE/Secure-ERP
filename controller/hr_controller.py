@@ -1,7 +1,9 @@
+from sqlite3 import Date
 from model.hr import hr
 from view import terminal as view
 from model import data_manager, util
 from controller import main_controller
+from datetime import date, datetime, timedelta
 
 
 def list_employees():
@@ -62,26 +64,72 @@ def get_oldest_and_youngest():
     for employee in range(len(list_employees)):
         year_list.append(list_employees[employee][2])
     oldest_emplyee = max(year_list)
-    print(list_employees.index(str(oldest_emplyee)))
+    oldest_emplyee_tuple = get_oldest_client(list_employees, oldest_emplyee)
     youngest_employee = min(year_list)
-    print(b)
+    youngest_employee_tuple = get_youngest_client(list_employees, youngest_employee)
+    view.print_message(((list_employees[oldest_emplyee_tuple[0]][1]),(list_employees[youngest_employee_tuple[0]][1])))
 
+def get_oldest_client(list_employees, oldest_emplyee):
+    for item, sublist in enumerate(list_employees):
+        try:
+            return (item, sublist.index(oldest_emplyee))
+        except ValueError:
+            continue
+    return None
 
+def get_youngest_client(list_employees, youngest_emplyee):
+    for item, sublist in enumerate(list_employees):
+        try:
+            return (item, sublist.index(youngest_emplyee))
+        except ValueError:
+            continue
+    return None
 
 def get_average_age():
-    view.print_error_message("Not implemented yet.")
+    list_employees = hr.get_list_customers()
+    birth_date_list = []
+    current_year = 2022
+    employees_birth_years_list = []
+    for employee in range(len(list_employees)):
+        birth_date_list.append(list_employees[employee][2])
+    for year in birth_date_list:
+        employees_birth_years_list.append(int(year.split("-")[0]))
+    average_year = int(sum(employees_birth_years_list) / len(employees_birth_years_list))
+    average_age = current_year - average_year
+    view.print_message(average_age)
 
 
 def next_birthdays():
-    view.print_error_message("Not implemented yet.")
+    today = date.today()
+    two_weeks_from_today = today +timedelta(weeks=2)
+    delta = date.today() - two_weeks_from_today
+    print(delta)
+    print(two_weeks_from_today)
+    view.print_message(today)
+    list_employees = hr.get_list_customers()
+    birth_date_list = []
+    converted = []
+    for employee in range(len(list_employees)):
+        birth_date_list.append(list_employees[employee][2])
+    print(birth_date_list)
+    pass
+
+
+
 
 
 def count_employees_with_clearance():
-    view.print_error_message("Not implemented yet.")
+    list_employees = hr.get_list_customers()
+    employees_with_clearance_level = []
+    for employee in range(len(list_employees)):
+        if list_employees[employee][4] != 0 :
+            employees_with_clearance_level.append(list_employees[employee][4])
+    print("Number of employees who have at least the input clearance level is :" , len(employees_with_clearance_level))
 
 
 def count_employees_per_department():
     view.print_error_message("Not implemented yet.")
+
 
 
 def run_operation(option):
