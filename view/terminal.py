@@ -130,6 +130,21 @@ def get_inputs_hr():
     labels.append(input("Clearance: "))
     return labels
 
+
+def get_inputs_sales():
+    labels = []
+    new_client_id = util.generate_id(number_of_small_letters=4,
+                                     number_of_capital_letters=2,
+                                     number_of_digits=2,
+                                     number_of_special_chars=2,
+                                     allowed_special_chars=r"_+-!")
+    labels.append(new_client_id)
+    labels.append(input("Add a customer: "))
+    labels.append(input("Add product: "))
+    labels.append(input("Add a price: "))
+    labels.append(input("Date: "))
+    return labels
+
 def print_error_message(message):
     """Prints an error message to the terminal.
 

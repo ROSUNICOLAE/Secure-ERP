@@ -1,5 +1,6 @@
 from model.sales import sales
 from view import terminal as view
+from model import data_manager, util
 
 
 def list_transactions():
@@ -8,7 +9,11 @@ def list_transactions():
 
 
 def add_transaction():
-    view.print_error_message("Not implemented yet.")
+    transactions = sales.get_transactions()
+    new_transaction = view.get_inputs_sales()
+    transactions.append(new_transaction)
+    data_manager.write_table_to_file(
+        sales.DATAFILE, transactions, separator=';')
 
 
 def update_transaction():
