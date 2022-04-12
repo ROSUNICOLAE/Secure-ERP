@@ -2,6 +2,8 @@ from model.crm import crm
 from view import terminal as view
 from model import data_manager, util
 from controller import main_controller
+from tabulate import tabulate
+from beautifultable import BeautifulTable
 
 
 
@@ -62,30 +64,21 @@ def get_subscribed_emails():
     '''Get the emails of subscribed customers'''
     list_customers = crm.get_list_customers()
     list_of_emails = []
-    print("Email adresses of the subscribed customers:")
+    lists_of_list_of_email = []
+    print("list_of_emails adresses of the subscribed customers:")
     for customer_information in list_customers:
         customer_mail = customer_information[2]
         subscription = customer_information[3]
         if subscription == '1':
             list_of_emails.append(customer_mail)
-    return list_of_emails
+        else:
+            continue
+    for email in list_of_emails:
+        item = email.split(", ")
+        lists_of_list_of_email.append(item)
+    print(tabulate(lists_of_list_of_email, headers=("Index", "Emails of the subscribed clients"), tablefmt="fancy_grid",
+                   colalign=("center",), numalign="center", showindex="always"))
     
-   # list_customers = crm.get_list_customers()
-    # # print("Email adresses of the subscribed customers:")
-    # for customer_information in list_customers:
-    #     table = BeautifulTable()
-    #     table.columns_header = ["Email"]
-    #     customer_mail = customer_information[-2]
-    #     if customer_information[-1] == '1':
-    #         table.append_row([f'{customer_mail}'])
-    # print(table)
-
-# def go_to_main_menu():
-#     options = ["Exit program",
-#                "Customer Relationship Management (CRM)",
-#                "Sales",
-#                "Human Resources"]
-#     view.print_menu("Main menu", options)
 
 def run_operation(option):
     if option == 1:
@@ -99,8 +92,7 @@ def run_operation(option):
     elif option == 5:
         get_subscribed_emails()
     if option == 0:
-        return
-        # go_to_main_menu()
+        main_controller.menu()
     else:
         raise KeyError("There is no such option.")
 
