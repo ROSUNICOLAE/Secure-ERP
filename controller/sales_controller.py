@@ -48,7 +48,18 @@ def update_transaction():
 
 
 def delete_transaction():
-    view.print_error_message("Not implemented yet.")
+    transactions = sales.get_transactions()
+    transaction_id_to_delete = input(
+        "In order to delete a transaction, please enter an ID: ")
+    transaction_tuple = get_transaction_from_id(
+        transactions, transaction_id_to_delete)
+    transaction_index = transaction_tuple[0]
+    if transactions is not None:
+        transactions.pop(transaction_index)
+        data_manager.write_table_to_file(
+            sales.DATAFILE, transactions, separator=';')
+    else:
+        print("Not an ID in the list of customers")
 
 
 def get_biggest_revenue_transaction():
