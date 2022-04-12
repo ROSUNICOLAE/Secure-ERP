@@ -16,8 +16,35 @@ def add_transaction():
         sales.DATAFILE, transactions, separator=';')
 
 
+def get_transaction_from_id(transactions, transaction_id_to_update):
+    for item, sublist in enumerate(transactions):
+        try:
+            return (item, sublist.index(transaction_id_to_update))
+        except ValueError:
+            continue
+    return None
+
+
 def update_transaction():
-    view.print_error_message("Not implemented yet.")
+    transactions = sales.get_transactions()
+    transaction_id_to_update = input(
+        "In order to update a transaction, please enter an ID: ")
+    transaction_tuple = get_transaction_from_id(
+        transactions, transaction_id_to_update)
+    transaction_index = transaction_tuple[0]
+    if transaction_tuple is not None:
+        transaction_update_name = str(input("Update the customer name: "))
+        transaction_update_product = str(input("Update the product: "))
+        transaction_update_price = str(input("Update the price: "))
+        transaction_update_date = str(input("Update the date: "))
+        transaction_update = [transaction_id_to_update, transaction_update_name,\
+                              transaction_update_product, transaction_update_price,\
+                              transaction_update_date]
+        transactions[transaction_index] = transaction_update
+        data_manager.write_table_to_file(
+            sales.DATAFILE, transactions, separator=';')
+    else:
+        print("Not an ID in the list of transactions")
 
 
 def delete_transaction():
