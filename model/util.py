@@ -17,5 +17,5 @@ def generate_id(number_of_small_letters=4,
     for char in range(number_of_special_chars):
         id.append(random.choice(allowed_special_chars))
     random.shuffle(id)        
-   
+
     return "".join(id)

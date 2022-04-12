@@ -1,3 +1,5 @@
+from operator import index
+from numpy import logical_and
 from model.crm import crm
 from view import terminal as view
 from model import data_manager, util
@@ -56,7 +58,7 @@ def delete_customer():
 
 
 def get_subscribed_emails():
-    view.print_error_message("Not implemented yet.")
+
 
 
 def run_operation(option):
