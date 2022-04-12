@@ -1,33 +1,18 @@
-# /--------------------------------\
-# |   id   |   product  |   type   |
-# |--------|------------|----------|
-# |   0    |  Bazooka   | portable |
-# |--------|------------|----------|
-# |   1    | Sidewinder | missile  |
-# \-----------------------------------/
+def get_biggest_revenue():
+    transactions = [['l4x__QmU8r', 'k0_JUq+8hk', 'Bazooka', '843.4', '2017-04-30'], ['Hcik9!_o2T', 'P7+5Ggza!n', 'Sidewinder', '1500.0', '2018-02-02'], ['N41z-Dgcz-', 'k0_JUq+8hk', 'Bazooka', '843.4',
+                                                                                                                                      '2018-05-24'], ['TiA9s!8n-c', 'Vans', 'otis', '83.22', '2022-04-09'], ['TiA9s!8n-c', 'Vans', 'otis', '1223.22', '2022-04-09'], ['TiA9s!8n-c', 'Vans', 'otis', '223.22', '2022-04-09']]
+    revenues = []
+    for transaction in transactions:
+        revenue = transaction[-2]
+        revenues.append(revenue)
+    revenues_float = [float(revenue) for revenue in revenues]
+    biggest_revenue = max(revenues_float)
+    print(biggest_revenue)
+    for transaction in transactions:
+        for item in transaction:
+            if item == str(biggest_revenue):
+                index_transaction = transactions.index(transaction)
+    return transactions[index_transaction]
+   
 
-
-# def print_table(table):
-#    """Prints tabular data like above.
-
-#     Args:
-#         table: list of lists - the table to print out
-#     """
-#     pass
-
-from tabulate import tabulate
-HEADERS = ["id", "name", "email", "subscribed"]
-
-table = [['pF5v4wG_e_', 'Dr. Strangelove',   'strangelove@rgv453.grer',     '1'], \
-         ['k0_JUq+8hk', 'Kim',                  'supremeleader@dfs.vfsdfv', '0'], \
-         ['l4x__QmU8r', 'Unknown',                   '---',                 '0'], \
-         ['P7+5Ggza!n', 'Known',                         'ping@me',          '1']]
-
-# flat_list = [item for sublist in table for item in sublist]
-# longest_string = (max(flat_list, key=len))
-
-flat_list = [item for sublist in table for item in sublist]
-print(flat_list)
-print(tabulate(table, HEADERS, tablefmt="fancy_grid", colalign=("center",), numalign="center"))
-
-
+print(get_biggest_revenue())
