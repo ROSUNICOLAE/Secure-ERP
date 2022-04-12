@@ -1,7 +1,7 @@
 from model.sales import sales
 from view import terminal as view
 from model import data_manager, util
-
+from controller import main_controller
 
 def list_transactions():
     transactions = sales.get_transactions()
@@ -62,29 +62,37 @@ def delete_transaction():
         print("Not an ID in the list of customers")
 
 
-def get_biggest_revenue_transaction():
-    '''Get the transaction that made the biggest revenue'''
+# def get_transaction_from_revenue(transactions, biggest_revenue):
+#     for item, transaction in enumerate(transactions):
+#         try:
+#             return (item, transaction.index(biggest_revenue))
+#         except ValueError:
+#             continue
+#     return None
+
+
+def get_biggest_revenue():
+    '''Get the the biggest revenue'''
     transactions = sales.get_transactions()
-    print("BIGGEST REVENUE TRANSACTION")
-    # print(transactions)
     revenues = []
     for transaction in transactions:
         revenue = transaction[-2]
         revenues.append(revenue)
-    # print(revenues)
-    # revenues_int = list(map(int, revenues))
-    print(revenues_int)
-    # tuple_index_revenue=[(item, transaction.index(biggest_revenue))for item, transaction in enumerate(transactions) if biggest_revenue in transaction]
-    # print(tuple_index_revenue)
-    # index_transaction_biggest_revenue = tuple_index_revenue[0]
-    # return transactions[index_transaction_biggest_revenue]
-    
-    #     customer_mail = customer_information[2]
-    #     subscription = customer_information[3]
-    #     if subscription == '1':
-    #         list_of_emails.append(customer_mail)
-    #     else:
-    #         continue
+    revenues_float = [float(revenue) for revenue in revenues]
+    biggest_revenue = max(revenues_float)
+    return biggest_revenue
+
+def get_biggest_revenue_transaction():
+    '''Get the transaction that made the biggest revenue'''
+    transactions = sales.get_transactions()
+    print("BIGGEST REVENUE TRANSACTION")
+    biggest_revenue = get_biggest_revenue()
+    for transaction in transactions:
+        for item in transaction:
+            if item == str(biggest_revenue):
+                index_transaction = transactions.index(transaction)
+    biggest_revenue_transaction = transactions[index_transaction]
+    print(biggest_revenue_transaction)
     # for email in list_of_emails:
     #     item = email.split(", ")
     #     lists_of_list_of_email.append(item)
@@ -122,7 +130,7 @@ def run_operation(option):
     elif option == 8:
         sum_transactions_between()
     elif option == 0:
-        return
+        main_controller.menu()
     else:
         raise KeyError("There is no such option.")
 
