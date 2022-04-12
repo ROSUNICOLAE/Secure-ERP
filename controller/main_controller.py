@@ -17,6 +17,7 @@ def load_module(option):
 
 
 def display_menu():
+    
     options = ["Exit program",
                "Customer Relationship Management (CRM)",
                "Sales",
