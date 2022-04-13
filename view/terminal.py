@@ -25,12 +25,12 @@ def print_menu(title, list_options):
 
 
 def print_message(message):
-    print(message)
     """Prints a single message to the terminal.
 
     Args:
         message: str - the message
     """
+    print(message)
 
 
 
