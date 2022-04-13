@@ -111,19 +111,25 @@ def get_average_age():
 
 
 def next_birthdays():
-    today = date.today()
-    two_weeks_from_today = today +timedelta(weeks=2)
-    delta = date.today() - two_weeks_from_today
-    print(delta)
-    print(two_weeks_from_today)
-    view.print_message(today)
     list_employees = hr.get_list_customers()
-    birth_date_list = []
-    converted = []
-    for employee in range(len(list_employees)):
-        birth_date_list.append(list_employees[employee][2])
-    print(birth_date_list)
-    pass
+    birth_date_index = 2
+    name_index = 1
+    time_delta = 14
+    today = date.today()
+    two_weeks_from_today = today + timedelta(time_delta)
+    list_of_names_with_birthdays = []
+    for employee in list_employees :
+        date_birth_employee = datetime.strptime(employee[birth_date_index],"%Y-%m-%d").date()
+        if date_birth_employee.strftime("%m-%d") >=today.strftime("%m-%d") and date_birth_employee.strftime("%m-%d")<=two_weeks_from_today.strftime("%m-%d"):
+            list_of_names_with_birthdays.append(employee[name_index])
+    if len(list_of_names_with_birthdays) == 0 :
+        prYellow("There are no parties in the next to weeks")
+    else :
+        prYellow("The names of employees who have birthdays within two weeks from today :")
+        for name in range(len(list_of_names_with_birthdays)):
+            prYellow(list_of_names_with_birthdays[name])
+
+
 
 
 
