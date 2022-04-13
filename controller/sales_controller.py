@@ -2,6 +2,9 @@ from model.sales import sales
 from view import terminal as view
 from model import data_manager, util
 from controller import main_controller
+from tabulate import tabulate
+import TableIt
+
 
 def list_transactions():
     transactions = sales.get_transactions()
@@ -62,15 +65,6 @@ def delete_transaction():
         print("Not an ID in the list of customers")
 
 
-# def get_transaction_from_revenue(transactions, biggest_revenue):
-#     for item, transaction in enumerate(transactions):
-#         try:
-#             return (item, transaction.index(biggest_revenue))
-#         except ValueError:
-#             continue
-#     return None
-
-
 def get_biggest_revenue():
     '''Get the the biggest revenue'''
     transactions = sales.get_transactions()
@@ -92,12 +86,14 @@ def get_biggest_revenue_transaction():
             if item == str(biggest_revenue):
                 index_transaction = transactions.index(transaction)
     biggest_revenue_transaction = transactions[index_transaction]
-    print(biggest_revenue_transaction)
-    # for email in list_of_emails:
-    #     item = email.split(", ")
-    #     lists_of_list_of_email.append(item)
-    # print(tabulate(lists_of_list_of_email, headers=("Index", "Emails of the subscribed clients"), tablefmt="fancy_grid",
-    #                colalign=("center",), numalign="center", showindex="always"))
+    lists_of_list_of_transaction = [item.split(",") for item in biggest_revenue_transaction]
+    # print(lists_of_list_of_transaction)
+    # for item in biggest_revenue_transaction:
+    #     item = biggest_revenue_transaction.split(", ")
+    #     lists_of_list_of_transaction.append(item)
+    # print(tabulate(lists_of_list_of_transaction, floatfmt=(".1f", ".3f")))
+        #   tablefmt="simple", colalign=("center",), numalign="center"))
+    TableIt.printTable(lists_of_list_of_transaction)
 
 
 def get_biggest_revenue_product():
