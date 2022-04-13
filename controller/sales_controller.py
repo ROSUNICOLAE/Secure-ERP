@@ -76,8 +76,21 @@ def get_biggest_revenue():
     biggest_revenue = max(revenues_float)
     return biggest_revenue
 
+
+def get_biggest_revenue_transaction_simple_list():
+    '''Get the transaction that made the biggest revenue as a single list'''
+    transactions = sales.get_transactions()
+    biggest_revenue = get_biggest_revenue()
+    for transaction in transactions:
+        for item in transaction:
+            if item == str(biggest_revenue):
+                index_transaction = transactions.index(transaction)
+    biggest_revenue_single_transaction = transactions[index_transaction]
+    return biggest_revenue_single_transaction
+
+
 def get_biggest_revenue_transaction():
-    '''Get the transaction that made the biggest revenue'''
+    '''Get the transaction that made the biggest revenue as table'''
     transactions = sales.get_transactions()
     print("BIGGEST REVENUE TRANSACTION")
     biggest_revenue = get_biggest_revenue()
@@ -85,12 +98,58 @@ def get_biggest_revenue_transaction():
         for item in transaction:
             if item == str(biggest_revenue):
                 index_transaction = transactions.index(transaction)
-    biggest_revenue_transaction = transactions[index_transaction]
-    TableIt.printTable([biggest_revenue_transaction, ])
+    biggest_revenue_single_transaction = transactions[index_transaction]
+    TableIt.printTable([biggest_revenue_single_transaction, ])
+    return biggest_revenue_single_transaction
 
 
+def get_biggest_revenue_product_name():
+    '''Get the name of the product that made the biggest revenue in one transaction'''
+    biggest_revenue_single_transaction = get_biggest_revenue_transaction_simple_list()
+    product_name_biggest_revenue_transaction = biggest_revenue_single_transaction[2]
+    return product_name_biggest_revenue_transaction
+
+
+def get_product_and_price_mutiple_products_revenue():
+    product_and_price = []
+    transactions = sales.get_transactions()
+    indexes_same_product = []
+    for index in range(len(transactions)-1):
+        product = transactions[index][2]
+        # if (index + 1) in range(len(transactions)-1):
+        try:
+            if product.lower() == transactions[index+1][2].lower():
+            # print(product)
+                index_product = transactions.index(transactions[index])
+                indexes_same_product.append(index_product)
+        except IndexError:
+            continue
+    # print(indexes_same_product)
+    # transactions with the same product
+    transactions_that_have_the_same_product = []
+    for index in indexes_same_product:
+        transactions_that_have_the_same_product.append(transactions[index])
+    # print(transactions_that_have_the_same_product)
+    sum_price_multiple_products = 0
+    for transaction in transactions_that_have_the_same_product:
+        price = transaction[-2]
+        sum_price_multiple_products += float(price)
+    name_of_max_multiple_product = transactions_that_have_the_same_product[0][2]
+    product_and_price.append(name_of_max_multiple_product)
+    product_and_price.append(sum_price_multiple_products)
+    return product_and_price
+# -----------------------------------------------------------------------------
 def get_biggest_revenue_product():
-    view.print_error_message("Not implemented yet.")
+    
+    product_and_price = get_product_and_price_mutiple_products_revenue()
+    product_multiple = product_and_price[0]
+    price_multiple_products = product_and_price[1]
+    product_single = get_biggest_revenue_product_name()
+    price_single_product = get_biggest_revenue()
+    if price_multiple_products < price_single_product:
+        print(f"Biggest revenue product is: {product_multiple}")
+    else:
+        print(f"Biggest revenue product is: {product_single}")
 
 
 def count_transactions_between():
