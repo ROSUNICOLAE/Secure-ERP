@@ -4,7 +4,7 @@ from model import data_manager, util
 from controller import main_controller
 from tabulate import tabulate
 import TableIt
-
+from datetime import date, datetime, timedelta
 
 def list_transactions():
     transactions = sales.get_transactions()
@@ -192,7 +192,16 @@ def get_biggest_revenue_product():
 
 
 def count_transactions_between():
-    view.print_error_message("Not implemented yet.")
+    transactions_list = sales.get_transactions()
+    date_index = 4
+    first_search_date = input("enter first date in yyy-mm-dd format : ")
+    second_search_date = input("enter first date yyy-mm-dd format : ")
+    first_search_date = datetime.strptime(first_search_date,"%Y-%m-%d").date()  
+    second_search_date = datetime.strptime(second_search_date,"%Y-%m-%d").date()
+    for transaction in transactions_list:
+        date_of_transaction = datetime.strptime(transaction[date_index],"%Y-%m-%d").date()
+        if  date_of_transaction.strftime("%Y-%m-%d") >= first_search_date.strftime("%Y-%m-%d") and date_of_transaction.strftime("%Y-%m-%d") <= second_search_date.strftime("%Y-%m-%d") :
+            print(transaction)
 
 
 def sum_transactions_between():
