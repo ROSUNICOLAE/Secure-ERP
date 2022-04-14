@@ -228,9 +228,10 @@ def sum_transactions_between():
     for transaction in filtered_by_date_transactions:
         price_transaction = transaction[3]
         total_price_between_selected_dates += float(price_transaction)
+    format_total_price_between_selected_dates = "{:.2f}".format(total_price_between_selected_dates)
     if total_price_between_selected_dates > 0:
         view.print_message(
-            f"The total price of transactions between {first_search_date} and {second_search_date} is: {total_price_between_selected_dates}")
+            f"The total price of transactions between {first_search_date} and {second_search_date} is: {format_total_price_between_selected_dates}")
     else:
         view.print_message(
             f"There are no transactions between {first_search_date} and {second_search_date}!")
