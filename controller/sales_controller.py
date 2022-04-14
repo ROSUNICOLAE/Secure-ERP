@@ -205,14 +205,35 @@ def count_transactions_between():
     if len(filtered_by_date_transactions) > 0:
         view.print_message(
             f'The number of transactions between {first_search_date} and {second_search_date} is: {len(filtered_by_date_transactions)}')
-        return filtered_by_date_transactions
     else:
         return "No transactions were made in this time span!"
 
 
 
 def sum_transactions_between():
-    # filtered_by_date_transactions = 
+    transactions = sales.get_transactions()
+    date_index = 4
+    first_search_date = input("Enter first date in yyyy-mm-dd format: ")
+    second_search_date = input("Enter the second date in  yyyy-mm-dd format: ")
+    first_search_date = datetime.strptime(first_search_date, "%Y-%m-%d").date()
+    second_search_date = datetime.strptime(
+        second_search_date, "%Y-%m-%d").date()
+    filtered_by_date_transactions = []
+    for transaction in transactions:
+        date_of_transaction = datetime.strptime(
+            transaction[date_index], "%Y-%m-%d").date()
+        if (date_of_transaction >= first_search_date) and (date_of_transaction <= second_search_date):
+            filtered_by_date_transactions.append(transaction)
+    total_price_between_selected_dates = 0
+    for transaction in filtered_by_date_transactions:
+        price_transaction = transaction[3]
+        total_price_between_selected_dates += float(price_transaction)
+    if total_price_between_selected_dates > 0:
+        view.print_message(
+            f"The total price of transactions between {first_search_date} and {second_search_date} is: {total_price_between_selected_dates}")
+    else:
+        view.print_message(
+            f"There are no transactions between {first_search_date} and {second_search_date}!")
 
 
 def run_operation(option):
