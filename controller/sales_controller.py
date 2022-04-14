@@ -109,47 +109,86 @@ def get_biggest_revenue_product_name():
     product_name_biggest_revenue_transaction = biggest_revenue_single_transaction[2]
     return product_name_biggest_revenue_transaction
 
-
-def get_product_and_price_mutiple_products_revenue():
-    product_and_price = []
-    transactions = sales.get_transactions()
-    indexes_same_product = []
-    for index in range(len(transactions)-1):
-        product = transactions[index][2]
-        # if (index + 1) in range(len(transactions)-1):
-        try:
-            if product.lower() == transactions[index+1][2].lower():
-            # print(product)
-                index_product = transactions.index(transactions[index])
-                indexes_same_product.append(index_product)
-        except IndexError:
-            continue
-    # print(indexes_same_product)
-    # transactions with the same product
-    transactions_that_have_the_same_product = []
-    for index in indexes_same_product:
-        transactions_that_have_the_same_product.append(transactions[index])
-    # print(transactions_that_have_the_same_product)
-    sum_price_multiple_products = 0
-    for transaction in transactions_that_have_the_same_product:
-        price = transaction[-2]
-        sum_price_multiple_products += float(price)
-    name_of_max_multiple_product = transactions_that_have_the_same_product[0][2]
-    product_and_price.append(name_of_max_multiple_product)
-    product_and_price.append(sum_price_multiple_products)
-    return product_and_price
-# -----------------------------------------------------------------------------
+  
 def get_biggest_revenue_product():
-    
-    product_and_price = get_product_and_price_mutiple_products_revenue()
-    product_multiple = product_and_price[0]
-    price_multiple_products = product_and_price[1]
-    product_single = get_biggest_revenue_product_name()
-    price_single_product = get_biggest_revenue()
-    if price_multiple_products < price_single_product:
-        print(f"Biggest revenue product is: {product_multiple}")
+    transactions = sales.get_transactions()
+    products = []
+    for transaction in transactions:
+        products.append(transaction[2])
+    #check for duplicates
+    unique_products = set(products)
+    if len(products) == len(unique_products):
+        print(
+            f'The product that made the biggest revenue altogether is: {get_biggest_revenue_product_name()}')
     else:
-        print(f"Biggest revenue product is: {product_single}")
+        filter_products = []
+        multiple_products = []
+        for product in products:
+            if product not in filter_products:
+                filter_products.append(product)
+            else:
+                multiple_products.append(product)
+        products_with_duplicates = list(set(multiple_products))
+
+        transaction_multiple_products0 = []
+        transaction_multiple_products1 = []
+        transaction_multiple_products2 = []
+        transaction_multiple_products3 = []
+        transaction_multiple_products4 = []
+
+        for transaction in transactions:
+            for i in range(len(products_with_duplicates)):
+                if products_with_duplicates[i] == transaction[2] and i == 0:
+                    transaction_multiple_products0.append(transaction)
+                elif products_with_duplicates[i] == transaction[2] and i == 1:
+                    transaction_multiple_products1.append(transaction)
+                elif products_with_duplicates[i] == transaction[2] and i == 2:
+                    transaction_multiple_products2.append(transaction)
+                elif products_with_duplicates[i] == transaction[2] and i == 3:
+                    transaction_multiple_products3.append(transaction)
+                elif products_with_duplicates[i] == transaction[2] and i == 4:
+                    transaction_multiple_products4.append(transaction)
+        sum0 = 0
+        for transaction in transaction_multiple_products0:
+            price = transaction[-2]
+            sum0 += float(price)
+        sum1 = 0
+        for transaction in transaction_multiple_products1:
+            price = transaction[-2]
+            sum1 += float(price)
+        sum2 = 0
+        for transaction in transaction_multiple_products2:
+            price = transaction[-2]
+            sum2 += float(price)
+        sum3 = 0
+        for transaction in transaction_multiple_products3:
+            price = transaction[-2]
+            sum3 += float(price)
+        sum4 = 0
+        for transaction in transaction_multiple_products4:
+            price = transaction[-2]
+            sum4 += float(price)
+        sum_max = max(sum0, sum1, sum2, sum3, sum4)
+        
+        if sum_max == sum0:
+            print(
+                f'The product that made the biggest revenue altogether is: {transaction_multiple_products0[0][2]}')
+        elif sum_max == sum1:
+            print(
+                f'The product that made the biggest revenue altogether is: {transaction_multiple_products1[0][2]}')
+        elif sum_max == sum2:
+            print(
+                f'The product that made the biggest revenue altogether is: {transaction_multiple_products2[0][2]}')
+        elif sum_max == sum3:
+            print(
+                f'The product that made the biggest revenue altogether is: {transaction_multiple_products3[0][2]}')
+        elif sum_max == sum4:
+            print(
+                f'The product that made the biggest revenue altogether is: {transaction_multiple_products4[0][2]}')
+      
+
+    
+
 
 
 def count_transactions_between():
