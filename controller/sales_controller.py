@@ -185,22 +185,20 @@ def get_biggest_revenue_product():
         elif sum_max == sum4:
             print(
                 f'The product that made the biggest revenue altogether is: {transaction_multiple_products4[0][2]}')
-      
-
-    
-
 
 
 def count_transactions_between():
     transactions_list = sales.get_transactions()
     date_index = 4
-    first_search_date = input("enter first date in yyy-mm-dd format : ")
-    second_search_date = input("enter first date yyy-mm-dd format : ")
-    first_search_date = datetime.strptime(first_search_date,"%Y-%m-%d").date()  
-    second_search_date = datetime.strptime(second_search_date,"%Y-%m-%d").date()
+    first_search_date = input("Enter first date in yyyy-mm-dd format: ")
+    second_search_date = input("Enter the second date in  yyyy-mm-dd format: ")
+    first_search_date = datetime.strptime(first_search_date, "%Y-%m-%d").date() 
+    second_search_date = datetime.strptime(second_search_date, "%Y-%m-%d").date()
     for transaction in transactions_list:
-        date_of_transaction = datetime.strptime(transaction[date_index],"%Y-%m-%d").date()
-        if  date_of_transaction.strftime("%Y-%m-%d") >= first_search_date.strftime("%Y-%m-%d") and date_of_transaction.strftime("%Y-%m-%d") <= second_search_date.strftime("%Y-%m-%d") :
+        date_of_transaction = datetime.strptime(transaction[date_index], "%Y-%m-%d").date()
+        # if (date_of_transaction.strftime("%Y-%m-%d") >= first_search_date.strftime("%Y-%m-%d") and date_of_transaction.strftime("%Y-%m-%d") <= second_search_date.strftime("%Y-%m-%d")):
+        #     print(transaction)
+        if (date_of_transaction >= first_search_date) and (date_of_transaction <= second_search_date):
             print(transaction)
 
 
