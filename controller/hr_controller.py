@@ -5,6 +5,16 @@ from model import data_manager, util
 from controller import main_controller
 from datetime import date, datetime, timedelta
 
+def prRed(skk): print("\033[91m {}\033[00m" .format(skk))
+def prGreen(skk): print("\033[92m {}\033[00m" .format(skk))
+def prYellow(skk): print("\033[93m {}\033[00m" .format(skk))
+def prLightPurple(skk): print("\033[94m {}\033[00m" .format(skk))
+def prPurple(skk): print("\033[95m {}\033[00m" .format(skk))
+def prCyan(skk): print("\033[96m {}\033[00m" .format(skk))
+def prLightGray(skk): print("\033[97m {}\033[00m" .format(skk))
+def prBlack(skk): print("\033[98m {}\033[00m" .format(skk))
+ 
+
 
 def list_employees():
     list_employees = hr.get_list_customers()
@@ -67,7 +77,7 @@ def get_oldest_and_youngest():
     oldest_emplyee_tuple = get_oldest_client(list_employees, oldest_emplyee)
     youngest_employee = min(year_list)
     youngest_employee_tuple = get_youngest_client(list_employees, youngest_employee)
-    view.print_message(((list_employees[oldest_emplyee_tuple[0]][1]),(list_employees[youngest_employee_tuple[0]][1])))
+    prYellow(((list_employees[oldest_emplyee_tuple[0]][1]),(list_employees[youngest_employee_tuple[0]][1])))
 
 def get_oldest_client(list_employees, oldest_emplyee):
     for item, sublist in enumerate(list_employees):
@@ -96,23 +106,30 @@ def get_average_age():
         employees_birth_years_list.append(int(year.split("-")[0]))
     average_year = int(sum(employees_birth_years_list) / len(employees_birth_years_list))
     average_age = current_year - average_year
-    view.print_message(average_age)
+    prYellow("Average employees age is :")
+    prYellow(average_age)
 
 
 def next_birthdays():
-    today = date.today()
-    two_weeks_from_today = today +timedelta(weeks=2)
-    delta = date.today() - two_weeks_from_today
-    print(delta)
-    print(two_weeks_from_today)
-    view.print_message(today)
     list_employees = hr.get_list_customers()
-    birth_date_list = []
-    converted = []
-    for employee in range(len(list_employees)):
-        birth_date_list.append(list_employees[employee][2])
-    print(birth_date_list)
-    pass
+    birth_date_index = 2
+    name_index = 1
+    time_delta = 14
+    today = date.today()
+    two_weeks_from_today = today + timedelta(time_delta)
+    list_of_names_with_birthdays = []
+    for employee in list_employees :
+        date_birth_employee = datetime.strptime(employee[birth_date_index],"%Y-%m-%d").date()
+        if date_birth_employee.strftime("%m-%d") >=today.strftime("%m-%d") and date_birth_employee.strftime("%m-%d")<=two_weeks_from_today.strftime("%m-%d"):
+            list_of_names_with_birthdays.append(employee[name_index])
+    if len(list_of_names_with_birthdays) == 0 :
+        prYellow("There are no parties in the next to weeks")
+    else :
+        prYellow("The names of employees who have birthdays within two weeks from today :")
+        for name in range(len(list_of_names_with_birthdays)):
+            prYellow(list_of_names_with_birthdays[name])
+
+
 
 
 
@@ -123,12 +140,26 @@ def count_employees_with_clearance():
     employees_with_clearance_level = []
     for employee in range(len(list_employees)):
         if list_employees[employee][4] != 0 :
-            employees_with_clearance_level.append(list_employees[employee][4])
-    print("Number of employees who have at least the input clearance level is :" , len(employees_with_clearance_level))
+            employees_with_clearance_level.append(list_employees[employee][4])   
+    prYellow("Number of employees who have at least the input clearance level is :  ")
+    prYellow(len(employees_with_clearance_level))
 
 
 def count_employees_per_department():
-    view.print_error_message("Not implemented yet.")
+    list_employees = hr.get_list_customers()
+    departament_index = 3
+    departament_dictionary = {}
+    for employees in list_employees:
+        if employees[(departament_index)] not in departament_dictionary:
+            departament_dictionary[employees[(departament_index)]] = 1
+        elif employees[(departament_index)] in departament_dictionary:
+            departament_dictionary[employees[(departament_index)]] += 1
+    prYellow(departament_dictionary)
+
+
+
+
+
 
 
 

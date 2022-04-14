@@ -25,12 +25,12 @@ def print_menu(title, list_options):
 
 
 def print_message(message):
-    print(message)
     """Prints a single message to the terminal.
 
     Args:
         message: str - the message
     """
+    print(message)
 
 
 
@@ -69,6 +69,17 @@ def print_table_hr(table):
     HEADERS = ["Id", "Name", "Date of birth", "Department", "Clearance"]
     print(tabulate(table, HEADERS, tablefmt="fancy_grid",
       colalign=("center",), numalign="center"))
+    
+    
+def print_table_sales(table):
+    """Prints tabular data like above.
+
+    Args:
+        table: list of lists - the table to print out
+    """
+    HEADERS = ["Id", "Customer", "Product", "Price", "Date"]
+    print(tabulate(table, HEADERS, tablefmt="fancy_grid",
+                   colalign=("center",), numalign="center"))
 
 
 def get_input(label):
@@ -117,6 +128,21 @@ def get_inputs_hr():
     labels.append(input("Date of Birth: "))
     labels.append(input("Department: "))
     labels.append(input("Clearance: "))
+    return labels
+
+
+def get_inputs_sales():
+    labels = []
+    new_client_id = util.generate_id(number_of_small_letters=4,
+                                     number_of_capital_letters=2,
+                                     number_of_digits=2,
+                                     number_of_special_chars=2,
+                                     allowed_special_chars=r"_+-!")
+    labels.append(new_client_id)
+    labels.append(input("Add a customer: "))
+    labels.append(input("Add product: "))
+    labels.append(input("Add a price: "))
+    labels.append(input("Date: "))
     return labels
 
 def print_error_message(message):
