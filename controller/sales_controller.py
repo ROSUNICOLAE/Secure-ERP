@@ -6,6 +6,7 @@ from tabulate import tabulate
 import TableIt
 from datetime import date, datetime, timedelta
 
+
 def list_transactions():
     transactions = sales.get_transactions()
     view.print_table_sales(transactions)
@@ -194,12 +195,20 @@ def count_transactions_between():
     second_search_date = input("Enter the second date in  yyyy-mm-dd format: ")
     first_search_date = datetime.strptime(first_search_date, "%Y-%m-%d").date() 
     second_search_date = datetime.strptime(second_search_date, "%Y-%m-%d").date()
+    
+    filtered_by_date_transactions = []
     for transaction in transactions_list:
-        date_of_transaction = datetime.strptime(transaction[date_index], "%Y-%m-%d").date()
-        # if (date_of_transaction.strftime("%Y-%m-%d") >= first_search_date.strftime("%Y-%m-%d") and date_of_transaction.strftime("%Y-%m-%d") <= second_search_date.strftime("%Y-%m-%d")):
-        #     print(transaction)
+        date_of_transaction = datetime.strptime(
+            transaction[date_index], "%Y-%m-%d").date()
         if (date_of_transaction >= first_search_date) and (date_of_transaction <= second_search_date):
-            print(transaction)
+            view.print_message(f'The transactiobs between {first_search_date} and {second_search_date} are :')
+            filtered_by_date_transactions.append(transaction)
+    if len(filtered_by_date_transactions) > 0:
+        view.print_message(
+            f'The transactiobs between {first_search_date} and {second_search_date} are :')
+        print(filtered_by_date_transactions)
+    else:
+        view.print_message("No transactions were made in this time span!")
 
 
 def sum_transactions_between():
