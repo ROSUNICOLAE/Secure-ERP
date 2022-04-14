@@ -201,18 +201,18 @@ def count_transactions_between():
         date_of_transaction = datetime.strptime(
             transaction[date_index], "%Y-%m-%d").date()
         if (date_of_transaction >= first_search_date) and (date_of_transaction <= second_search_date):
-            view.print_message(f'The transactiobs between {first_search_date} and {second_search_date} are :')
             filtered_by_date_transactions.append(transaction)
     if len(filtered_by_date_transactions) > 0:
         view.print_message(
-            f'The transactiobs between {first_search_date} and {second_search_date} are :')
-        print(filtered_by_date_transactions)
+            f'The number of transactions between {first_search_date} and {second_search_date} is: {len(filtered_by_date_transactions)}')
+        return filtered_by_date_transactions
     else:
-        view.print_message("No transactions were made in this time span!")
+        return "No transactions were made in this time span!"
+
 
 
 def sum_transactions_between():
-    view.print_error_message("Not implemented yet.")
+    # filtered_by_date_transactions = 
 
 
 def run_operation(option):
